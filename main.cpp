@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <iostream>
 #include <string>
 
@@ -26,9 +27,22 @@ class character{
 class enemy{
     public:
     string name;
-    stats stats
+    //float spawn_rate;
+    stats stats;
+    int hp;
+    int mana;
+    void TakeDamage(int damage){
+    if (damage <= 0) {
+        return;
+    }
+    hp = max(0, hp - damage);
+};
     
-}
+};
+
+
+
+
 
 int main(){
     string usn;
@@ -36,11 +50,20 @@ int main(){
     cout << " enter character name ; ";
     getline(cin, usn);
     player.name = usn;
-    player.hp = 100;
-    player.mana = 20;
     player.stats = {100, 200, 20, 10};
-    cout << player.name << " |HP " << player.stats.MaxHP << " |Mana " << player.stats.MaxMana << "|Sttack " << player.stats.attack << "|Intelegence" << player.stats.MaxMana;
-    return 0;
+    player.hp = player.stats.MaxHP;
+    player.mana = player.stats.MaxMana;
+    cout << player.name << " |HP " << player.hp << " |Mana " << player.mana << "|attack " << player.stats.attack << "|Intelegence " << player.stats.MaxMana << "\n";
+    enemy slime; 
+    slime.stats = {20, 0, 20, 4};
+    slime.hp = slime.stats.MaxHP;
+    slime.mana = slime.stats.MaxMana;
+    cout << "you encounter a slime!!" << "\n"<<  "|HP"  << slime.stats.MaxHP << "|attack " << slime.stats.attack;
+    slime.TakeDamage(player.stats.attack);
+    if (slime.hp == 0) {
+    cout << "slime has been defeated";
+    }
+    return 0; 
     //scanf("enter character name %s", &character.name)
 
 }
